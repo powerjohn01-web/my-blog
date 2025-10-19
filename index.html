@@ -1,345 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Basic meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Godspower Ezekiel John</title>
+
+  <!-- SEO / Social (update og:image if you want another image) -->
+  <meta name="description" content="Godspower Ezekiel John — learning web design and sharing projects, tips and tutorials."/>
+  <meta name="keywords" content="Godspower, web design, HTML, CSS, blog, projects, Nigeria"/>
+  <meta name="author" content="Godspower Ezekiel John"/>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Godspower Ezekiel John" />
+  <meta property="og:description" content="Learning web design and sharing projects, tips and tutorials." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1557683316-973673baf926?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://powerjohn01-web.github.io/my-blog/" />
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@raptureisclose" />
+
+  <!-- Favicon -->
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" type="image/png">
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Godspower Ezekiel John</title>
+  <!-- ======= Styles ======= -->
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #001f3f;
-      color: white;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      scroll-behavior: smooth;
+    :root{
+      --bg:#001f3f;
+      --card:#002244;
+      --accent:#00ccff;
+      --muted:#ccc;
+      --text:#ffffff;
+      --nav:#004080;
+      --glass: rgba(255,255,255,0.04);
     }
 
-    nav {
-      background-color: #004080;
-      padding: 10px 0;
+    /* Theme variables (light/dark) */
+    :root[data-theme="light"]{
+      --bg: #ffffff;
+      --card: #f7f8fa;
+      --accent: #0077b6;
+      --muted: #333;
+      --text: #111;
+      --nav: #e9f2fb;
+      --glass: rgba(0,0,0,0.03);
+    }
+
+    html,body{ height:100%; margin:0; padding:0; font-family: Arial, Helvetica, sans-serif; background:var(--bg); color:var(--text); scroll-behavior:smooth; }
+
+    /* NAVBAR */
+    .site-header{
       position: sticky;
-      top: 0;
-      z-index: 1000;
+      top:0;
+      z-index:10000;
+      background: linear-gradient(90deg, var(--nav), rgba(0,0,0,0));
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-      transition: color 0.3s;
+    .nav-inner{
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 18px;
     }
 
-    nav a:hover {
-      color: #00ccff;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand img{ width:44px; height:44px; border-radius:8px; display:block; }
+    .brand h1{ font-size:20px; margin:0; color:var(--text); letter-spacing:0.2px; }
+
+    nav.primary{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    nav.primary a{
+      color:var(--text);
+      text-decoration:none;
+      font-weight:600;
+      padding:8px 10px;
+      border-radius:8px;
+    }
+    nav.primary a:hover{ color:var(--accent); background:var(--glass); }
+
+    /* Mobile hamburger */
+    .hamburger{
+      display:none;
+      background:none;
+      border:2px solid transparent;
+      padding:8px;
+      border-radius:8px;
+      cursor:pointer;
     }
 
-    section {
-      padding: 60px 20px;
-      animation: fadeIn 1s ease-in;
+    .hamburger .line{ width:22px; height:2px; background:var(--text); display:block; margin:4px 0; border-radius:2px; }
+
+    /* Header utilities (theme toggle + search icon) */
+    .header-utils{ display:flex; gap:8px; align-items:center; }
+
+    #theme-toggle{
+      background:transparent;
+      border:2px solid rgba(255,255,255,0.08);
+      color:var(--text);
+      padding:6px 10px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* HERO / HOME */
+    section{ padding:60px 18px; max-width:1100px; margin:0 auto; }
+    #home h2, #about h2, #blog h2, #contact h2{ color:var(--accent); margin-bottom:8px; }
+    #home{ text-align:center; padding-top:40px; padding-bottom:40px; }
+    #home h1{ margin:6px 0 10px 0; font-size:30px; }
+    #home p{ max-width:760px; margin:0 auto 18px auto; line-height:1.6; color:var(--muted); }
+
+    #homeImage{
+      width:260px; border-radius:12px; display:block; margin:18px auto; transition:transform 0.4s;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    }
+    #homeImage:hover{ transform:scale(1.03); }
+
+    /* BLOG GRID */
+    .blog-tools{ display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:18px; flex-wrap:wrap; }
+    .search-box{ display:flex; gap:8px; align-items:center; }
+    .search-box input{
+      padding:8px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); width:260px; background: transparent; color:var(--text);
+    }
+    .posts-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:18px; }
+    .post-card{
+      background:var(--card); border-radius:12px; padding:12px; text-align:left; box-shadow: 0 6px 20px rgba(0,0,0,0.28); transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .post-card:hover{ transform:translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.38); }
+    .post-thumb{ width:100%; border-radius:8px; height:160px; object-fit:cover; display:block; margin-bottom:10px; }
+    .post-meta{ font-size:13px; color:var(--muted); margin-bottom:8px; }
+    .post-card h3{ margin:6px 0; color:var(--accent); }
+    .read-row{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px; }
+    .read-more{ color:var(--accent); text-decoration:none; font-weight:700; }
+
+    /* Single post modal / reader */
+    .post-modal{
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:12000;
+      background: rgba(0,0,0,0.6);
+    }
+    .post-modal .modal-card{
+      width:92%; max-width:900px; background:var(--bg); color:var(--text); border-radius:12px; padding:18px; overflow:auto; max-height:86vh;
+    }
+    .modal-close{ float:right; cursor:pointer; padding:6px 8px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); }
+
+    /* ABOUT & CONTACT */
+    #about p{ max-width:780px; margin:0 auto; color:var(--muted); }
+    .contact-wrap{ display:flex; gap:20px; align-items:flex-start; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+    .contact-card{ background:var(--card); border-radius:12px; padding:14px; min-width:260px; max-width:420px; box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
+    .contact-card input, .contact-card textarea{
+      width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:var(--text);
+      margin-bottom:10px;
+    }
+    .contact-card button{ padding:10px 14px; border-radius:8px; cursor:pointer; border:none; font-weight:700; background:var(--accent); color:#fff; }
+
+    /* Footer */
+    footer{
+      background: #0b1220; color:var(--muted); padding:28px 18px; margin-top:40px;
+    }
+    footer .footer-inner{ max-width:1100px; margin:0 auto; display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    footer .links a{ margin-right:12px; color:var(--muted); text-decoration:none; }
+    footer p{ margin:6px 0; font-size:14px; color:var(--muted); }
+
+    /* Back to top */
+    #topBtn{
+      position:fixed; right:22px; bottom:22px; width:50px; height:50px; border-radius:50%; border:none; display:none; cursor:pointer;
+      font-size:20px; font-weight:700; background:var(--accent); color:#fff; box-shadow:0 8px 20px rgba(0,0,0,0.25);
     }
 
-    img {
-      display: block;
-      margin: 20px auto;
-      border-radius: 12px;
-      width: 250px;
-      height: auto;
-      transition: transform 0.4s;
+    /* Comments area */
+    .comments{ margin-top:12px; border-top:1px dashed rgba(255,255,255,0.06); padding-top:12px; }
+    .comment{ background:var(--card); padding:8px 10px; border-radius:8px; margin-bottom:8px; color:var(--muted); }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .posts-grid{ grid-template-columns: 1fr; }
+      nav.primary{ display:none; }
+      .hamburger{ display:block; }
     }
 
-    img:hover {
-      transform: scale(1.05);
-    }
-
-    footer {
-      background-color: #002244;
-      padding: 15px;
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    footer a {
-      color: #00ccff;
-      text-decoration: none;
-    }
-
-    .social-icons a {
-      margin: 0 10px;
-      display: inline-block;
-      transition: transform 0.3s;
-    }
-
-    .social-icons a:hover {
-      transform: scale(1.2);
-    }
-
-    /* Back-to-Top Button */
-    #topBtn {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background-color: #00ccff;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 22px;
-      cursor: pointer;
-      display: none;
-      transition: all 0.3s;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
-
-    #topBtn:hover {
-      background-color: #0099cc;
-      transform: scale(1.1);
-    }
-
-    /* Blog Section */
-    #blog {
-      background-color: #001a33;
-      padding: 60px 20px;
-    }
-
-    .blog-card {
-      max-width: 600px;
-      margin: 20px auto;
-      background-color: #002244;
-      border: 1px solid #00ccff;
-      border-radius: 10px;
-      padding: 20px;
-      text-align: left;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .blog-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 15px rgba(0, 204, 255, 0.4);
-    }
-
-    .blog-card h3 {
-      color: #00ccff;
-      margin-bottom: 5px;
-    }
-
-    .blog-card .date {
-      font-size: 14px;
-      color: #ccc;
-      margin-bottom: 10px;
-    }
-
-    .blog-card .excerpt {
-      line-height: 1.5;
-      margin-bottom: 15px;
-    }
-
-    .read-more {
-      color: #00ccff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .read-more:hover {
-      text-decoration: underline;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 600px) {
-      nav a {
-        display: block;
-        margin: 8px 0;
-      }
-
-      img {
-        width: 90%;
-      }
-    }
-    footer {
-  background: #111;
-  color: #ccc;
-  text-align: center;
-  padding: 20px 0;
-  margin-top: 40px;
+    /* small animation */
+    .fadeInUp{ animation: fadeInUp 0.5s ease both; }
+    @keyframes fadeInUp{ from{ opacity:0; transform:translateY(12px);} to{ opacity:1; transform:translateY(0);} }
+    /* ====== Slideshow Styling (10 images) ====== */
+.slideshow {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  margin: 30px auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.social-icons {
-  margin-bottom: 10px;
+.slideshow .slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: fadeAnimation 40s infinite;
+  border-radius: 16px;
 }
 
-.social-icons img {
-  width: 35px;
-  margin: 0 10px;
-  transition: transform 0.3s, opacity 0.3s;
-  border-radius: 50%;
+/* Each image shows for 4 seconds (40s total for 10 images) */
+.slideshow .slide:nth-child(1) { animation-delay: 0s; }
+.slideshow .slide:nth-child(2) { animation-delay: 4s; }
+.slideshow .slide:nth-child(3) { animation-delay: 8s; }
+.slideshow .slide:nth-child(4) { animation-delay: 12s; }
+.slideshow .slide:nth-child(5) { animation-delay: 16s; }
+.slideshow .slide:nth-child(6) { animation-delay: 20s; }
+.slideshow .slide:nth-child(7) { animation-delay: 24s; }
+.slideshow .slide:nth-child(8) { animation-delay: 28s; }
+.slideshow .slide:nth-child(9) { animation-delay: 32s; }
+.slideshow .slide:nth-child(10) { animation-delay: 36s; }
+
+@keyframes fadeAnimation {
+  0% { opacity: 0; }
+  5% { opacity: 1; }
+  25% { opacity: 1; }
+  30% { opacity: 0; }
+  100% { opacity: 0; }
 }
 
-.social-icons img:hover {
-  transform: scale(1.2);
-  opacity: 0.8;
-}
+
   </style>
 </head>
 <body>
 
-  <!-- Navigation Bar -->
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#blog">Blog</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <!-- ===== Header / Nav ===== -->
+  <header class="site-header" id="siteHeader">
+    <div class="nav-inner">
+      <div class="brand">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="logo">
+        <div>
+          <h1>Godspower Ezekiel John</h1>
+          <div style="font-size:12px; color:var(--muted)">Learning web design & building projects</div>
+        </div>
+      </div>
 
-<!-- Home Section -->
-<section id="home">
+      <nav class="primary" id="primaryNav">
+        <a href="#home">Home</a>
+        <a href="#blog">Blog</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-utils">
+        <button id="theme-toggle" title="Toggle theme">Toggle Theme</button>
+
+        <!-- hamburger for mobile -->
+        <button class="hamburger" id="hambBtn" aria-label="Open menu">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile nav panel -->
+    <div id="mobilePanel" style="display:none; background:var(--card); border-top: 1px solid rgba(255,255,255,0.03);">
+      <div style="max-width:1100px; margin:0 auto; padding:10px 18px;">
+        <a href="#home" style="display:block; padding:8px 0;">Home</a>
+        <a href="#blog" style="display:block; padding:8px 0;">Blog</a>
+        <a href="#about" style="display:block; padding:8px 0;">About</a>
+        <a href="#contact" style="display:block; padding:8px 0;">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Home ===== -->
+<section id="home" class="fadeInUp">
+  <h2>Welcome</h2>
   <h1>Welcome to My Website</h1>
   <p>Hello! I'm <strong>Godspower Ezekiel John</strong>. I'm learning web design and creating cool projects!</p>
-  <img id="homeImage" src="https://images.unsplash.com/photo-1557683316-973673baf926?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600" alt="Website image">
-</section>
 
-<script>
-  // Array of 10 beautiful image URLs
-  const images = [
-    "https://images.unsplash.com/photo-1557683316-973673baf926?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1506765515384-028b60a970df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1532619675605-5200a48c6f8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1508780709619-79562169bc64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1521791136064-7986c2920216?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1498050108023-9b2e1f0b6bb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1472289065668-ce650ac443d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1537498425277-c283d32ef9db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600"
-  ];
-
-  let currentIndex = 0;
-  const imgElement = document.getElementById("homeImage");
-
-  function rotateImage() {
-    currentIndex = (currentIndex + 1) % images.length;
-    imgElement.src = images[currentIndex];
-  }
-
-  setInterval(rotateImage, 4000);
-</script>
-
-
-<script>
-  // Array of image URLs
-  const images = [
-    "https://images.unsplash.com/photo-1557683316-973673baf926?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1506765515384-028b60a970df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-    "https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600"
-  ];
-
-  let currentIndex = 0;
-  const imgElement = document.getElementById("homeImage");
-
-  // Function to change image
-  function rotateImage() {
-    currentIndex = (currentIndex + 1) % images.length;
-    imgElement.src = images[currentIndex];
-  }
-
-  // Change image every 4 seconds
-  setInterval(rotateImage, 4000);
-</script>
-
-
-  <!-- Blog Section -->
-  <section id="blog">
-    <h2>Latest Blog Posts</h2>
-
-    <div class="blog-card">
-  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600" 
-       alt="Blog post image" 
-       style="width:100%; border-radius:8px; margin-bottom:10px;">
-  <h3>My First Website Project</h3>
-  <p class="date">October 16, 2025</p>
-  <p class="excerpt">
-    Building my first website taught me how to plan, design, and bring ideas to life with HTML and CSS.
-  </p>
-  <a href="#" class="read-more">Read More →</a>
+  <!-- Slideshow container -->
+<div class="slideshow">
+  <div class="slide fade" style="background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=80');"></div>
+  <div class="slide fade" style="background-image: url('https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=1200&q=80');"></div>
+  <div class="slide fade" style="background-image: url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=1200&q=80');"></div>
+  <div class="slide fade" style="background-image: url('https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?auto=format&fit=crop&w=1200&q=80');"></div>
+  <div class="slide fade" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80');"></div>
+  <div class="slide fade" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80');"></div>
+  <div class="slide fade" style="background-image: url('https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80');"></div>
+  <div class="slide fade" style="background-image: url('https://images.unsplash.com/photo-1521747116042-5a810fda9664?auto=format&fit=crop&w=1200&q=80');"></div>
+  <div class="slide fade" style="background-image: url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80');"></div>
+  <div class="slide fade" style="background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80');"></div>
 </div>
 
+</section>
 
+
+  <!-- ===== Blog ===== -->
+  <section id="blog" class="fadeInUp">
+    <h2>Latest Blog Posts</h2>
+
+    <div class="blog-tools">
+      <div class="search-box">
+        <input id="searchInput" placeholder="Search posts by title or keyword..." aria-label="Search posts">
+        <button id="clearSearch" title="Clear search" style="padding:8px;border-radius:8px;border:none;cursor:pointer;background:var(--accent);color:#fff;font-weight:700;">Clear</button>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div style="font-size:13px;color:var(--muted);">Posts: <span id="postsCount">0</span></div>
+      </div>
+    </div>
+
+    <div class="posts-grid" id="postsGrid">
+      <!-- JS will render posts here -->
+    </div>
+
+    <!-- Single post modal -->
+    <div id="postModal" class="post-modal" role="dialog" aria-modal="true">
+      <div class="modal-card" id="modalCard">
+        <button class="modal-close" id="closeModal">Close ✖</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about">
+  <!-- ===== About ===== -->
+  <section id="about" class="fadeInUp">
     <h2>About Me</h2>
     <p>I'm passionate about creating clean, functional, and beautiful websites. This is my first step into the world of web design and development.</p>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact">
+  <!-- ===== Contact ===== -->
+  <section id="contact" class="fadeInUp">
     <h2>Contact Me</h2>
-    <p>Let's connect on any of the platforms below!</p>
+    <p>Let's connect — use the contact form below, or any of the quick links to message me directly.</p>
 
-    <div class="social-icons">
-      <a href="https://wa.me/2349129434111" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="40" alt="WhatsApp">
-      </a>
-      <a href="mailto:godspowerjohn397@gmail.com" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="40" alt="Email">
-      </a>
-      <a href="https://twitter.com/raptureisclose" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" width="40" alt="Twitter">
-      </a>
-      <a href="https://t.me/ocrst" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" width="40" alt="Telegram">
-      </a>
+    <div class="contact-wrap">
+      <!-- Contact form (uses FormSubmit.co) -->
+      <div class="contact-card">
+        <form id="contactForm" action="https://formsubmit.co/godspowerjohn397@gmail.com" method="POST" target="_blank">
+          <!-- FormSubmit requires a honeypot or _captcha param optionally; opens a new tab by default -->
+          <input type="hidden" name="_subject" value="New message from your website">
+          <input type="hidden" name="_next" value="https://powerjohn01-web.github.io/my-blog/">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Your email" required>
+          <textarea name="message" rows="5" placeholder="Your message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+        <div style="font-size:12px;color:var(--muted); margin-top:8px;">(Form sends to your email using formsubmit.co — change to another service if needed.)</div>
+      </div>
+
+      <!-- quick social icons -->
+      <div class="contact-card" style="text-align:center;">
+        <h3 style="margin-top:0;color:var(--accent);">Quick Links</h3>
+        <div style="margin:12px 0;">
+          <a href="https://wa.me/2349129434111" target="_blank" style="display:inline-block;margin:8px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="40" alt="WhatsApp">
+          </a>
+          <a href="mailto:godspowerjohn397@gmail.com" target="_blank" style="display:inline-block;margin:8px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="40" alt="Email">
+          </a>
+          <a href="https://twitter.com/raptureisclose" target="_blank" style="display:inline-block;margin:8px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" width="40" alt="Twitter">
+          </a>
+          <a href="https://t.me/ocrst" target="_blank" style="display:inline-block;margin:8px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" width="40" alt="Telegram">
+          </a>
+        </div>
+        <div style="font-size:13px;color:var(--muted)">Or use the contact form — I will receive your message by email.</div>
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <!-- Footer -->
+  <!-- ===== Footer ===== -->
   <footer>
-    <div class="social-icons">
-      <a href="https://wa.me/2349129434111" target="_blank">
-        <img src="images/whatsapp.png" alt="WhatsApp">
-      </a>
-      <a href="mailto:godspowerjohn397@gmail.com" target="_blank">
-        <img src="images/email.png" alt="Email">
-      </a>
-      <a href="https://twitter.com/raptureisclose" target="_blank">
-        <img src="images/twitter.png" alt="Twitter">
-      </a>
-      <a href="https://t.me/oscrt" target="_blank">
-        <img src="images/telegram.png" alt="Telegram">
-      </a>
+    <div class="footer-inner">
+      <div>
+        <strong>&copy; <span id="year"></span> Godspower Ezekiel John</strong>
+        <div style="font-size:13px;color:var(--muted)">Designed with ❤️ by Godspower</div>
+      </div>
+
+      <div class="links" style="display:flex;align-items:center;gap:12px;">
+        <a href="#home">Home</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+        <span style="color:var(--muted)">| Visits: <strong id="visitCount">0</strong></span>
+      </div>
     </div>
-    <p>&copy; 2025 Godspower Ezekiel John. All rights reserved. | Designed with ❤️ by Godspower</p>
   </footer>
 
-  <!-- Back to Top Button -->
-  <button id="topBtn" onclick="scrollToTop()">↑</button>
+  <!-- Back to top -->
+  <button id="topBtn" title="Back to top">↑</button>
 
+  <!-- ======= Scripts ======= -->
   <script>
-    // Show button when scrolling down
-    window.onscroll = function() {
-      const topBtn = document.getElementById("topBtn");
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        topBtn.style.display = "block";
+    /* -----------------------------
+       Basic utilities & DOM ready
+    ------------------------------*/
+    (function(){
+      // Auto year in footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Smooth reveal for sections already handled with CSS classes
+    })();
+
+    /* -----------------------------
+       Visitor counter (localStorage)
+       This is a per-browser counter. For global counters use a server/service.
+    ------------------------------*/
+    (function(){
+      const key = 'site_visits_local';
+      let visits = parseInt(localStorage.getItem(key) || '0', 10);
+      visits = visits + 1;
+      localStorage.setItem(key, visits);
+      document.getElementById('visitCount').textContent = visits;
+    })();
+
+    /* ===========================
+       Theme toggle (persist)
+       =========================== */
+    (function(){
+      const themeBtn = document.getElementById('theme-toggle');
+      const root = document.documentElement;
+
+      // Apply saved theme or default to dark theme
+      const saved = localStorage.getItem('site_theme');
+      if(saved) {
+        root.setAttribute('data-theme', saved);
+        themeBtn.textContent = saved === 'light' ? 'Light Mode' : 'Dark Mode';
       } else {
-        topBtn.style.display = "none";
+        root.setAttribute('data-theme', 'dark');
+        themeBtn.textContent = 'Dark Mode';
       }
-    };
 
-    // Smooth scroll to top
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  </script>
+      themeBtn.addEventListener('click', function(){
+        const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        const next = current === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('site_theme', next);
+        themeBtn.textContent = next === 'light' ? 'Light Mode' : 'Dark Mode';
+      });
+    })();
 
-</body>
-</html>
+    /* ===========================
+       Mobile hamburger
+       =========================== */
+    (function(){
+      const hamb = document.getElementById('hambBtn');
+      const panel = document.getElementById('mobilePanel');
+      hamb.addEventListener('click', function(){
+        if(panel.style.display === 'block') panel.style.display = 'none';
+        else panel.style.display = 'block';
+      });
+      // hide panel on link click
+      panel.addEventListener('click', function(e){
+        if(e.target.tagName === 'A') panel.style.display = 'none';
+      });
+    })();
+
+    /* ===========================
+       Back-to-top button
+       =========================== */
+    (function(){
+      const topBtn = document.getElementById('topBtn');
+      window.addEventListener('scroll', function(){
+        if(window.scrollY > 220) topBtn.style.display = 'block';
+        else topBtn.style.display = 'none';
+      });
+      topBtn.addEventListener('click', function(){ window.scrollTo({ top:0, behavior:'smooth'}); });
+    })();
+
+    /* ===========================
+       Home image rotation (clean single implementation)
+       =========================== */
+    (function(){
+      const images = [
+        "https://images.unsplash.com/photo-1557683316-973673baf926?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+        "https://images.unsplash.com/photo-1506765515384-028b60a970df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600"
+      ];
+      let idx = 0;
+      const imgEl = document.getElementById('homeImage');
+      setInterval(() => {
+        idx = (idx + 1) % images.length;
+        imgEl.src = images[idx];
+      }, 4000);
+    })();
+
+    /* ===========================
+       Blog posts data + render + search + modal reader
+       - You can add new posts into `posts` array
+       =========================== */
+    (function(){
+      // Existing posts; keep your original post included
+      const posts = [
+        {
+          id: 'post-1',
+          title: 'My First Website Project',
+          date: 'October 16, 2025',
+          excerpt: 'Building my first website taught me how to plan, design, and bring ideas to life with HTML and CSS.',
+          image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
+          content: `<p>Building my first website taught me how to plan, design, and bring ideas to life with HTML and CSS. I used Acode and GitHub Pages to publish my work.</p>
+                    <p>In future posts I'll share step-by-step tutorials and tips for beginners.</p>`
+        },
+        // example second post (empty content placeholder) - you can add more here
+        {
+          id: 'post-2',
+          title: 'My Learning Roadmap',
+          date: 'October 18, 2025',
+          excerpt: 'A short plan of what I will learn next: JavaScript, responsive layouts, and accessibility.',
+          image: 'https://images.unsplash.com/photo-1498050108023-9b2e1f0b6bb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
+          content: `<p>Planning to learn JavaScript next, including DOM manipulation and small interactive features.</p>`
+        }
+      ];
+
+      const postsGrid = document.getElementById('postsGrid');
+      const postsCount = document.getElementById('postsCount');
+      const searchInput = document.getElementById('searchInput');
+      const clearSearch = document.getElementById('clearSearch');
+
+      function renderPosts(list){
+        postsGrid.innerHTML = '';
+        postsCount.textContent = list.length;
+        list.forEach(p => {
+ 
