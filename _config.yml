@@ -1,0 +1,5 @@
+title: "My Blog"
+description: "Welcome to my personal blog!"
+baseurl: "/my-blog" # your repository name
+url: "https://powerjohn01-web.github.io"
+theme: minima
