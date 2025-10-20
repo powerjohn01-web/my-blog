@@ -533,5 +533,55 @@
       function renderPosts(list){
         postsGrid.innerHTML = '';
         postsCount.textContent = list.length;
-        list.forEach(p => {
+        list.forEach(p => {        // your post rendering logic here
+    });
+}
+</script>
+<script>
+const postsGrid = document.getElementById('posts-grid');
+const postsCount = document.getElementById('posts-count');
+
+// Blogger feed URL
+const bloggerFeedUrl = 'https://infowave247.blogspot.com/feeds/posts/default?alt=json';
+
+// Fetch and render Blogger posts
+async function loadBloggerPosts() {
+  try {
+    const response = await fetch(bloggerFeedUrl);
+    const data = await response.json();
+    const entries = data.feed.entry || [];
+
+    postsCount.textContent = entries.length;
+    postsGrid.innerHTML = '';
+
+    entries.forEach(entry => {
+      const title = entry.title.$t;
+      const link = entry.link.find(l => l.rel === 'alternate').href;
+      const content = entry.content ? entry.content.$t : '';
+      const date = entry.published.$t.split('T')[0];
+
+      // Render post card
+      const postHTML = `
+        <div class="post-card">
+          <h2>${title}</h2>
+          <p><em>${date}</em></p>
+          <div class="post-content">${content}</div>
+          <a href="${link}" target="_blank" class="read-more">View on Blogger →</a>
+        </div>
+      `;
+      postsGrid.innerHTML += postHTML;
+    });
+  } catch (err) {
+    console.error('Error loading posts:', err);
+    postsGrid.innerHTML = '<p>Failed to load posts. Check your Blogger feed URL.</p>';
+  }
+}
+
+// Load posts on page load
+loadBloggerPosts();
+</script>
+
+</body>
+</html>
+
  
